@@ -15,8 +15,9 @@
 RCT_EXPORT_MODULE()
 
 RCT_EXPORT_METHOD(subscribe) {
+    __weak typeof(self) weakSelf = self;
     self.detector.silentNotify = ^(BOOL silent) {
-        [self.bridge.eventDispatcher sendAppEventWithName:@"SilentSwitch"
+        [weakSelf.bridge.eventDispatcher sendAppEventWithName:@"SilentSwitch"
                                                      body:@{@"status": silent?@"ON":@"OFF"}];
     };
 }
